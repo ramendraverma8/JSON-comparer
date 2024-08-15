@@ -87,7 +87,6 @@ const App: React.FC = () => {
           </Button>
         </Toolbar>
       </AppBar>
-      <h1 style={{ textAlign: 'center' }}>JSON Comparison</h1>
       <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
         <DialogTitle>Add JSON</DialogTitle>
         <DialogContent>
@@ -113,7 +112,7 @@ const App: React.FC = () => {
             Cancel
           </Button>
           <Button onClick={handleAddJsonString} color="primary">
-            Add JSON
+            OK
           </Button>
         </DialogActions>
       </Dialog>

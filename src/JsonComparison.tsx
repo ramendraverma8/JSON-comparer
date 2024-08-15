@@ -2,6 +2,7 @@ import React from "react";
 import { Typography } from '@mui/material';
 import { ResizableBox } from 'react-resizable';
 import 'react-resizable/css/styles.css';
+import './App.css';
 
 interface JsonComparisonProps {
   jsons: Record<string, any>[];
@@ -11,7 +12,7 @@ const JsonComparison: React.FC<JsonComparisonProps> = ({ jsons }) => {
   if (jsons.length === 0) return null;
 
   const baseColor = "#DFF0D8"; // Light green for JSON A
-  const compareColor = "#D9EDF7"; // Light blue for other JSONs
+  const compareColor = "#FADBD8"; // Light blue for other JSONs
   const baseTextColor = "#3C763D"; // Dark green text for JSON A
   const compareTextColor = "#31708F"; // Dark blue text for other JSONs
 
@@ -67,7 +68,7 @@ const JsonComparison: React.FC<JsonComparisonProps> = ({ jsons }) => {
     >
       {jsons.map((json, index) => (
         <ResizableBox style={{ margin: "10px", padding: "10px" }} width={500} axis="x" minConstraints={[400,0]}>
-          <Typography variant="h6">JSON {index + 1}</Typography>
+          <Typography variant="h6">Object {index + 1}</Typography>
           {renderJsonWithHighlights(json, index === 0)}
         </ResizableBox>
       ))}
