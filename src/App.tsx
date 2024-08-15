@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Divider, Typography } from '@mui/material';
+import { AppBar, Toolbar, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Divider, Typography } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
-import JsonComparison from './JsonComparison';
 import './App.css'; // Import the CSS file for additional styling
+import JsonComparison from './JsonComparison';
 
 const App: React.FC = () => {
   const [jsons, setJsons] = useState<Record<string, any>[]>([]);
@@ -24,7 +24,7 @@ const App: React.FC = () => {
       alert('Please provide either a JSON string or upload a JSON file, not both.');
       return;
     }
-  
+
     if (jsonString) {
       try {
         const json = JSON.parse(jsonString);
@@ -77,15 +77,17 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <div className="button-container">
-        
-        <Button variant="contained" color="secondary" onClick={handleNewComparison} >
-          New Comparison
-        </Button>
-        <Button variant="contained" color="primary" onClick={handleClickOpen}style={{ marginLeft: '20px' }} startIcon={<AddIcon />}>
-          Add New
-        </Button>
-      </div>
+      <AppBar position="static">
+        <Toolbar sx={{ justifyContent: 'flex-end' }}>
+          <Button variant="contained"  onClick={handleNewComparison}>
+            New Comparison
+          </Button>
+          <Button variant="contained" color="primary" onClick={handleClickOpen} style={{ marginLeft: '20px' }} startIcon={<AddIcon />}>
+            Add New
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <h1 style={{ textAlign: 'center' }}>JSON Comparison</h1>
       <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
         <DialogTitle>Add JSON</DialogTitle>
         <DialogContent>
