@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Align buttons to the left */
+  margin: 20px;
+}
+
+
+.react-resizable-handle {
+  height: 100% !important;
+  width: 1px !important;
+}
+
+.react-resizable-handle-se {
+  cursor: e-resize !important;
+}
