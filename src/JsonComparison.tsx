@@ -62,7 +62,7 @@ const JsonComparison: React.FC<JsonComparisonProps> = ({ jsons }) => {
       style={{
         display: "flex",
         width: "100%",
-        justifyContent: "space-around",
+        justifyContent: "flex-start",
         overflowX: "scroll",
       }}
     >
