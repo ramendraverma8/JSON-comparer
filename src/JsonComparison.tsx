@@ -12,7 +12,7 @@ const JsonComparison: React.FC<JsonComparisonProps> = ({ jsons }) => {
   if (jsons.length === 0) return null;
 
   const baseColor = "#DFF0D8"; // Light green for JSON A
-  const compareColor = "#FADBD8"; // Light blue for other JSONs
+  const compareColor = "#D9EDF7"; // Light blue for other JSONs
   const baseTextColor = "#3C763D"; // Dark green text for JSON A
   const compareTextColor = "#31708F"; // Dark blue text for other JSONs
 

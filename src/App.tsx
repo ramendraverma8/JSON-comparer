@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Divider, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import {AppBar,Toolbar, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Divider, Typography } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
-import './App.css'; // Import the CSS file for additional styling
 import JsonComparison from './JsonComparison';
+import './App.css'; // Import the CSS file for additional styling
 
 const App: React.FC = () => {
   const [jsons, setJsons] = useState<Record<string, any>[]>([]);
   const [jsonString, setJsonString] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const savedJsons = localStorage.getItem('jsons');
+    if (savedJsons) {
+      setJsons(JSON.parse(savedJsons));
+    }
+  }, []);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -28,11 +35,9 @@ const App: React.FC = () => {
     if (jsonString) {
       try {
         const json = JSON.parse(jsonString);
-        if (Array.isArray(json)) {
-          setJsons((prevJsons) => [...prevJsons, ...json]);
-        } else {
-          setJsons((prevJsons) => [...prevJsons, json]);
-        }
+        const newJsons = Array.isArray(json) ? [...jsons, ...json] : [...jsons, json];
+        setJsons(newJsons);
+        localStorage.setItem('jsons', JSON.stringify(newJsons));
         setJsonString('');
         setOpen(false);
       } catch (err) {
@@ -44,11 +49,9 @@ const App: React.FC = () => {
       reader.onload = (e) => {
         try {
           const json = JSON.parse(e.target?.result as string);
-          if (Array.isArray(json)) {
-            setJsons((prevJsons) => [...prevJsons, ...json]);
-          } else {
-            setJsons((prevJsons) => [...prevJsons, json]);
-          }
+          const newJsons = Array.isArray(json) ? [...jsons, ...json] : [...jsons, json];
+          setJsons(newJsons);
+          localStorage.setItem('jsons', JSON.stringify(newJsons));
           setFile(null);
           setOpen(false);
         } catch (err) {
@@ -65,6 +68,7 @@ const App: React.FC = () => {
   const handleNewComparison = () => {
     setJsons([]);
     setJsonString('');
+    localStorage.removeItem('jsons');
   };
 
   const handleClickOpen = () => {
