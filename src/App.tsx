@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {AppBar,Toolbar, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Divider, Typography } from '@mui/material';
+import { AppBar, Toolbar, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Divider, Typography, Box } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 import JsonComparison from './JsonComparison';
 import './App.css'; // Import the CSS file for additional styling
@@ -83,7 +83,7 @@ const App: React.FC = () => {
     <div>
       <AppBar position="static">
         <Toolbar sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained"  onClick={handleNewComparison}>
+          <Button variant="contained" onClick={handleNewComparison}>
             New Comparison
           </Button>
           <Button variant="contained" color="primary" onClick={handleClickOpen} style={{ marginLeft: '20px' }} startIcon={<AddIcon />}>
@@ -94,22 +94,35 @@ const App: React.FC = () => {
       <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
         <DialogTitle>Add JSON</DialogTitle>
         <DialogContent>
-          <TextField
-            label="Enter JSON string"
-            multiline
-            rows={4}
-            value={jsonString}
-            onChange={handleJsonStringChange}
-            variant="outlined"
-            fullWidth
-            style={{ marginBottom: '20px' }}
-          />
-          <Divider>
-            <Typography variant="body1" color="textSecondary">
-              Or
-            </Typography>
-          </Divider>
-          <input type="file" accept="application/JSON" onChange={handleFileUpload} style={{ display: 'block', marginTop: '20px' }} />
+          <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%">
+            <TextField
+              label="Enter JSON string"
+              multiline
+              rows={4}
+              value={jsonString}
+              onChange={handleJsonStringChange}
+              variant="outlined"
+              fullWidth
+              style={{ marginBottom: '20px' }}
+            />
+            <Divider>
+              <Typography variant="body1" color="textSecondary">
+                Or
+              </Typography>
+            </Divider>
+            <input
+              type="file"
+              accept="application/JSON"
+              onChange={handleFileUpload}
+              style={{ display: 'none' }}
+              id="file-upload"
+            />
+            <label htmlFor="file-upload">
+              <Button variant="contained" component="span" style={{ marginTop: '20px' }}>
+                Upload JSON File
+              </Button>
+            </label>
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
