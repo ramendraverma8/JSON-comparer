@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Divider, Typography, Box } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 import JsonComparison from './JsonComparison';
+import RegisterForm from './RegisterForm';
 import './App.css'; // Import the CSS file for additional styling
+import Table from './table';
 
 const App: React.FC = () => {
   const [jsons, setJsons] = useState<Record<string, any>[]>([]);
   const [jsonString, setJsonString] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
   const [open, setOpen] = useState(false);
+  const [isRegisterFormOpen, setRegisterFormOpen] = useState(false);
 
   useEffect(() => {
     const savedJsons = localStorage.getItem('jsons');
@@ -78,6 +81,12 @@ const App: React.FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleRegisterOpen = () => {
+    setRegisterFormOpen(true);
+  };
+  const handleRegisterClose = () => {
+    setRegisterFormOpen(false);
+  };
 
   return (
     <div>
@@ -88,6 +97,9 @@ const App: React.FC = () => {
           </Button>
           <Button variant="contained" color="primary" onClick={handleClickOpen} style={{ marginLeft: '20px' }} startIcon={<AddIcon />}>
             Add New
+          </Button>
+          <Button variant="contained" onClick= {handleRegisterOpen}>
+            Register
           </Button>
         </Toolbar>
       </AppBar>
@@ -133,8 +145,13 @@ const App: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {jsons.length > 0 && <JsonComparison jsons={jsons} />}
+      <div data-testid="json-container">
+        {jsons.length > 0 && <JsonComparison jsons={jsons} />}
+      </div>
+      <RegisterForm open={isRegisterFormOpen} onClose={handleRegisterClose} />
+      <Table />
     </div>
+   
   );
 };
 
