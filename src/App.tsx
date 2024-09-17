@@ -5,6 +5,7 @@ import JsonComparison from './JsonComparison';
 import RegisterForm from './RegisterForm';
 import './App.css'; // Import the CSS file for additional styling
 import Table from './table';
+import MyTabs from './tab';
 
 const App: React.FC = () => {
   const [jsons, setJsons] = useState<Record<string, any>[]>([]);
@@ -149,6 +150,7 @@ const App: React.FC = () => {
         {jsons.length > 0 && <JsonComparison jsons={jsons} />}
       </div>
       <RegisterForm open={isRegisterFormOpen} onClose={handleRegisterClose} />
+      <MyTabs />
       <Table />
     </div>
    
